@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="100" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#ef4444"/>
+      <stop offset="33%"  stop-color="#eab308"/>
+      <stop offset="66%"  stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <!-- Left bracket < -->
+  <polyline points="35,20 15,50 35,80" stroke="url(#grad)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Right bracket > -->
+  <polyline points="65,20 85,50 65,80" stroke="url(#grad)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Forward slash / -->
+  <line x1="58" y1="18" x2="42" y2="82" stroke="url(#grad)" stroke-width="10" stroke-linecap="round"/>
+</svg>
