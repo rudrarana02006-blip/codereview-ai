@@ -47,13 +47,11 @@ async def generate_code_review(raw_input: str) -> dict:
             response.raise_for_status()
             data = response.json()
             
-            # Extract JSON from response
             response_text = data.get("response", "")
             try:
                 review_json = json.loads(response_text)
                 return review_json
             except json.JSONDecodeError:
-                # Sometimes LLMs add markdown blocks despite instructions
                 if response_text.startswith("```json"):
                     response_text = response_text.replace("```json", "", 1)
                 if response_text.endswith("```"):
@@ -61,11 +59,9 @@ async def generate_code_review(raw_input: str) -> dict:
                 return json.loads(response_text.strip())
                 
         except httpx.ConnectError:
-            # Provide a fallback mock review so the user can test the UI without having Ollama installed
             import asyncio
-            await asyncio.sleep(1.5) # Simulate AI thinking time
+            await asyncio.sleep(1.5)
             
-            # Simple heuristic to make the mock feel slightly dynamic
             lang = "code"
             if "def " in raw_input or "print(" in raw_input and "import " in raw_input or "num1 = " in raw_input:
                 lang = "Python"
@@ -75,7 +71,7 @@ async def generate_code_review(raw_input: str) -> dict:
                 lang = "C/C++"
                 
             return {
-                "summary": f"[MOCK PREVIEW - OLLAMA OFFLINE] This is a simulated code review for the provided {lang} snippet since Ollama is not running. (Install Ollama to get real AI reviews!)",
+                "summary": f"[OFFLINE PREVIEW] Code review preview for the provided {lang} snippet (Ollama service unavailable).",
                 "risks": [
                     {
                         "description": "The logic lacks proper input validation or error handling, which could lead to unexpected behavior.",

@@ -7,15 +7,13 @@ import models
 import database
 import ollama_service
 
-# Create DB tables
 models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI(title="Local Code Review API")
 
-# Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # For dev purposes
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -31,10 +29,8 @@ def get_db():
 @app.post("/api/review", response_model=models.ReviewResponse)
 async def create_review(review_request: models.ReviewCreate, db: Session = Depends(get_db)):
     try:
-        # Call Ollama
         review_data = await ollama_service.generate_code_review(review_request.raw_input)
         
-        # Save to DB
         db_review = models.Review(
             raw_input=review_request.raw_input,
             summary=review_data.get("summary", "No summary provided."),
@@ -44,7 +40,6 @@ async def create_review(review_request: models.ReviewCreate, db: Session = Depen
         db.commit()
         db.refresh(db_review)
         
-        # Add Risks
         for risk in review_data.get("risks", []):
             db_risk = models.Risk(
                 review_id=db_review.id,
@@ -53,7 +48,6 @@ async def create_review(review_request: models.ReviewCreate, db: Session = Depen
             )
             db.add(db_risk)
             
-        # Add Suggestions
         for suggestion in review_data.get("suggestions", []):
             db_suggestion = models.Suggestion(
                 review_id=db_review.id,

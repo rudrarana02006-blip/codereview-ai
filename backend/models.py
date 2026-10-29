@@ -37,7 +37,6 @@ class Suggestion(Base):
 
     review = relationship("Review", back_populates="suggestions")
 
-# Pydantic schemas for API
 from pydantic import BaseModel
 from typing import List, Optional
 

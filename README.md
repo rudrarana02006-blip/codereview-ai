@@ -23,10 +23,10 @@ Paste a raw git diff, a PR description, or any block of code — CodeReview AI r
 
 | Section | Description |
 |---|---|
-| 📋 **Change Summary** | Plain-English explanation of what the code does |
-| 🚩 **Risk Flags** | Bugs, security issues, and edge cases with **Low / Medium / High** severity |
-| 💡 **Suggestions** | Line-level improvement recommendations |
-| ⭐ **Overall Rating** | *Looks Good*, *Needs Minor Changes*, or *Needs Major Rework* |
+| **Change Summary** | Plain-English explanation of what the code does |
+| **Risk Flags** | Bugs, security issues, and edge cases with **Low / Medium / High** severity |
+| **Suggestions** | Line-level improvement recommendations |
+| **Overall Rating** | *Looks Good*, *Needs Minor Changes*, or *Needs Major Rework* |
 
 ---
 
@@ -35,7 +35,7 @@ Paste a raw git diff, a PR description, or any block of code — CodeReview AI r
 The easiest way to run this. No Python or Node setup required.
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/codereview-ai.git
+git clone https://github.com/rudrarana02006-blip/codereview-ai.git
 cd codereview-ai
 docker compose up -d
 ```
@@ -116,5 +116,5 @@ All analysis is performed **locally**. Your code is sent to `localhost:11434` (y
 ---
 
 <div align="center">
-  <sub>Built with ❤️ — private, fast, and free.</sub>
+  <sub>Private, fast, and local code reviews.</sub>
 </div>

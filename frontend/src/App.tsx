@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { formatDistanceToNow } from 'date-fns';
 import {
-  Code,
   Send,
   Loader2,
   AlertTriangle,
   Lightbulb,
-  CheckCircle,
   Copy,
-  Download,
   Clock,
-  Menu,
   FileText
 } from 'lucide-react';
 
-// Types
 interface Risk {
   description: string;
   severity: 'low' | 'medium' | 'high';
@@ -66,7 +61,7 @@ function App() {
     try {
       const res = await axios.post(`${API_BASE}/review`, { raw_input: input });
       setCurrentReview(res.data);
-      fetchHistory(); // Refresh history
+      fetchHistory();
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Failed to generate review. Ensure Ollama is running.');
     } finally {
@@ -113,7 +108,6 @@ ${currentReview.suggestions.map(s => `- ${s.description} ${s.line_reference ? `(
 
   return (
     <div className="app-container">
-      {/* Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-header">
           <h1><img src="/favicon.svg" alt="CodeReview AI Logo" style={{ width: '28px', height: '28px' }} /> <span>CodeReview AI</span></h1>
@@ -142,7 +136,6 @@ ${currentReview.suggestions.map(s => `- ${s.description} ${s.line_reference ? `(
         </div>
       </aside>
 
-      {/* Main Content */}
       <main className="main-content">
         <div className="header-actions">
           <h2>New Code Review</h2>
@@ -178,7 +171,6 @@ ${currentReview.suggestions.map(s => `- ${s.description} ${s.line_reference ? `(
 
         {currentReview ? (
           <div className="review-output">
-            {/* Rating & Summary */}
             <div className="card">
               <h2><FileText size={20} /> Overview</h2>
               <div style={{ marginBottom: '1rem' }}>
@@ -189,7 +181,6 @@ ${currentReview.suggestions.map(s => `- ${s.description} ${s.line_reference ? `(
               <p className="summary-text">{currentReview.summary}</p>
             </div>
 
-            {/* Risks */}
             <div className="card">
               <h2><AlertTriangle size={20} color="var(--severity-high)" /> Risk Flags</h2>
               {currentReview.risks.length > 0 ? (
@@ -208,7 +199,6 @@ ${currentReview.suggestions.map(s => `- ${s.description} ${s.line_reference ? `(
               )}
             </div>
 
-            {/* Suggestions */}
             <div className="card">
               <h2><Lightbulb size={20} color="var(--severity-medium)" /> Suggestions</h2>
               {currentReview.suggestions.length > 0 ? (
